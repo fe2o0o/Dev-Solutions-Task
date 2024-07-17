@@ -1,0 +1,62 @@
+<section class="position-fixed overflow-auto top-0 bottom-0 start-0 end-0 bg-white bg-opacity-50">
+  <div class="container h-100 d-flex justify-content-center align-items-center">
+    <div class="form bg-white position-relative rounded-3 shadow-lg w-50">
+      <div (click)="closeOverLay()" class="close-icon text-bg-danger rounded-circle d-flex justify-content-center align-items-center">
+        <mat-icon class="fw-bold d-inline">add</mat-icon>
+      </div>
+      <div class="p-3 text-center">
+        <h5 class="fw-bold">{{mood == 'add' ? "Add Product":"Up Date Product"}}</h5>
+        @if(imageUrl() != ''){
+        <img width="100" height="100" class="rounded-circle" [src]="imageUrl()" alt="">
+        }@else {
+        <img width="100" height="100" class="rounded-circle" src="https://placehold.co/100x100/png" alt="">
+        }
+      </div>
+      <form (ngSubmit)="hadleSubmitProduct(productForm)" [formGroup]="productForm" class="p-3" action="">
+        <div class="form-group mb-3">
+          <label for="" class="mb-1">Title</label>
+          <input formControlName="title" type="text" class="form-control">
+          @if(productForm.get("title")?.getError('required') && productForm.get('title')?.touched ){
+          <strong class="text-danger">Product Title Is Required</strong>
+          }
+        </div>
+        <div class="form-group mb-3">
+          <label for="" class="mb-1">Price</label>
+          <input formControlName="price" type="number" class="form-control">
+          @if(productForm.get("price")?.getError('required') && productForm.get('price')?.touched ){
+          <strong class="text-danger">Price Is Required</strong>
+          }@else if(productForm.get("price")?.getError('min')) {
+          <strong class="text-danger">minimum price is 1</strong>
+          }
+        </div>
+        <div class="form-group mb-3">
+          <label for="" class="mb-1">Category</label>
+          <select formControlName="category" class="form-control" name="" id="">
+            @for(cat of categories ; track cat){
+            <option [value]="cat">{{cat}}</option>
+            }
+          </select>
+          @if(productForm.get("category")?.getError('required') && productForm.get('category')?.touched ){
+          <strong class="text-danger">category Is Required</strong>
+          }
+        </div>
+        <div class="form-group mb-3">
+          <label for="" class="mb-1">description</label>
+          <textarea formControlName="description" name="" id="" class="form-control"></textarea>
+          @if(productForm.get("description")?.getError('required') && productForm.get('description')?.touched ){
+          <strong class="text-danger">description Is Required</strong>
+          }
+        </div>
+        <div class="form-group mb-3">
+          <label for="" class="mb-1">Image</label>
+          <input formControlName="image" (change)="readUrl($any($event).target.files)" type="file" class="form-control"
+            accept="image/*">
+          @if(productForm.get("image")?.getError('required') && productForm.get('image')?.touched ){
+          <strong class="text-danger">image Is Required</strong>
+          }
+        </div>
+        <button [disabled]="productForm.invalid" class="btn" [ngClass]="{'btn-success': mood == 'add' , 'btn-warning' : mood == 'update' }">{{mood == 'update' ? "update Product" :"Add Product"}}</button>
+      </form>
+    </div>
+  </div>
+</section>

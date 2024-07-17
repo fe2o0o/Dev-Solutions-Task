@@ -1,0 +1,12 @@
+.product-overlay{
+  z-index: 999;
+}
+
+.close-icon {
+  height: 30px !important;
+  width: 30px !important;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}

@@ -1,0 +1,32 @@
+<app-navbar></app-navbar>
+<app-hero></app-hero>
+<section class="py-5">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-lg-3 side">
+        <div class="inner shadow-lg p-3 rounded-2">
+          <h2 class="fs-3  text-center fw-bolder">Our Categories</h2>
+          <ul class="list-unstyled p-0">
+            <li (click)="handleChangeCategory('all')" [ngClass]="{'text-bg-info':cuurentCat()=='all'}"
+              class="p-2 rounded-2 fs-5 mb-2 fw-medium ">ALL</li>
+            @for(cat of categories ; track cat){
+            <li (click)="handleChangeCategory(cat)" [ngClass]="{'text-bg-info':cuurentCat()== cat}"
+              class="p-2 rounded-2 mb-2 fs-5 fw-medium ">{{cat}}</li>
+            }
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="row g-4">
+          @for(product of products ; track product.id){
+            <app-product (showDetailsEmitter)="handleShowDetails($event)" class="col-xl-4  col-lg-6 col-md-6" [product]="product"></app-product>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+@if( showProductDetails() ){
+  <app-product-details (closeDetailsEmitter)="handleCloseDetails($event)" [product]="selectedShowProductDetails"></app-product-details>
+}

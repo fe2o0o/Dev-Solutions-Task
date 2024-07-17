@@ -1,0 +1,23 @@
+<section class="product-overlay d-flex justify-content-center align-items-center position-fixed top-0 bottom-0 start-0 end-0 bg-dark bg-opacity-25 ">
+  <div class="container position-relative bg-white p-4 rounded-3">
+    <div (click)="closeOverLay()"
+      class="close-icon text-bg-danger rounded-circle d-flex justify-content-center align-items-center">
+      <mat-icon class="fw-bold d-inline">add</mat-icon>
+    </div>
+    <div class="row justify-content-evenly align-items-center">
+      <div class="col-md-4 product-image">
+        <img class="w-100" [src]="product?.image" alt="">
+      </div>
+
+      <div class="col-md-6 product-content">
+        <h2>{{product?.title}}</h2>
+        <p>{{product?.description}}</p>
+              <div class="d-flex align-items-center mb-2">
+                <img width="20" height="20" class="me-3" src="assets/star.png" alt="">
+                <p class="m-0 fw-bold">{{product?.rating?.rate}}</p>
+              </div>
+              <p class="fs-5 fw-bold">{{product.price|currency:"EGP "}}</p>
+      </div>
+    </div>
+  </div>
+</section>
